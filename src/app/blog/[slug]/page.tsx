@@ -70,7 +70,7 @@ export default async function Blog({
             image={`${baseURL}/og?title=${encodeURIComponent(post.metadata.title)}`}
             author={{
               name: person.name,
-              url: `${baseURL}${about.path}`,
+              url: `${baseURL}/`,
               image: `${baseURL}${person.avatar}`,
             }}
           />
