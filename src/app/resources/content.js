@@ -1,16 +1,16 @@
 import { Logo } from "@/once-ui/components";
 
 const person = {
-  firstName: "Selene",
-  lastName: "Yu",
+  firstName: "Vladimir",
+  lastName: "Nechaev",
   get name() {
     return `${this.firstName} ${this.lastName}`;
   },
-  role: "Design Engineer",
-  avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  role: "Student in Network and Telecommunication",
+  avatar: "/images/avatar.png",
+  email: "nechadimir@gmail.com",
+  location: "Europe/Paris", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+  languages: ["English", "French", "Vietnamese", "German", "Russian"], // optional: Leave the array empty if you don't want to display languages
 };
 
 const newsletter = {
@@ -62,7 +62,7 @@ const home = {
     display: true,
   },
   calendar: {
-    display: true,
+    display: false,
     link: "https://cal.com",
   },
   intro: {
@@ -70,9 +70,7 @@ const home = {
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        I'm currently studying at the University of Haute Alsace in the Network and Communication stream with a specialization in Cloud Development. I'll be presenting the skills I've developed through my courses, work experience and personal projects.
       </>
     ),
   },
@@ -81,17 +79,15 @@ const home = {
     title: "Work Experience",
     experiences: [
       {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        company: "Nartex",
+        timeframe: "17/02/2025 - 11/04/2025",
+        role: "Intern in mobile development",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
+            Mobile app development using Swift and SwiftUI for IOS. Implentation of KMP multiplatform.
           </>,
           <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
+            Figma design and prototyping.
           </>,
         ],
         images: [
@@ -105,7 +101,7 @@ const home = {
         ],
       },
       {
-        company: "Creativ3",
+        company: "INNOV'events",
         timeframe: "2018 - 2022",
         role: "Lead Designer",
         achievements: [
