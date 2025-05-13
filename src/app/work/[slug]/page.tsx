@@ -1,16 +1,15 @@
 import { notFound } from "next/navigation";
 import { CustomMDX } from "@/components/mdx";
 import { getPosts } from "@/app/utils/utils";
-import { AvatarGroup, Button, Column, Flex, Heading, SmartImage, Text } from "@/once-ui/components";
-import { baseURL } from "@/app/resources";
-import { about, person, work } from "@/app/resources/content";
+import { AvatarGroup, Button, Column, Heading, HeadingNav, Icon, Row, Text } from "@/once-ui/components";
+import { work, person, baseURL } from "@/app/resources";
 import { formatDate } from "@/app/utils/formatDate";
 import ScrollToHash from "@/components/ScrollToHash";
-import { Metadata } from "next";
+import { Metadata } from 'next';
 import { Meta, Schema } from "@/once-ui/modules";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const posts = getPosts(["src", "app", "work", "projects"]);
+  const posts = getPosts(["src", "app", "work", "posts"]);
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -24,7 +23,7 @@ export async function generateMetadata({
   const routeParams = await params;
   const slugPath = Array.isArray(routeParams.slug) ? routeParams.slug.join('/') : routeParams.slug || '';
 
-  const posts = getPosts(["src", "app", "work", "projects"])
+  const posts = getPosts(["src", "app", "work", "posts"])
   let post = posts.find((post) => post.slug === slugPath);
 
   if (!post) return {};
@@ -38,13 +37,13 @@ export async function generateMetadata({
   });
 }
 
-export default async function Project({
+export default async function Blog({
   params
 }: { params: Promise<{ slug: string | string[] }> }) {
   const routeParams = await params;
   const slugPath = Array.isArray(routeParams.slug) ? routeParams.slug.join('/') : routeParams.slug || '';
 
-  let post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slugPath);
+  let post = getPosts(["src", "app", "work", "posts"]).find((post) => post.slug === slugPath);
 
   if (!post) {
     notFound();
@@ -56,47 +55,54 @@ export default async function Project({
     })) || [];
 
   return (
-    <Column as="section" maxWidth="m" horizontal="center" gap="l">
-      <Schema
-        as="blogPosting"
-        baseURL={baseURL}
-        path={`${work.path}/${post.slug}`}
-        title={post.metadata.title}
-        description={post.metadata.summary}
-        datePublished={post.metadata.publishedAt}
-        dateModified={post.metadata.publishedAt}
-        image={`${baseURL}/og?title=${encodeURIComponent(post.metadata.title)}`}
-        author={{
-          name: person.name,
-          url: `${baseURL}/`,
-          image: `${baseURL}${person.avatar}`,
-        }}
-      />
-      <Column maxWidth="xs" gap="16">
-        <Button data-border="rounded" href="/work" variant="tertiary" weight="default" size="s" prefixIcon="chevronLeft">
-          Projects
-        </Button>
-        <Heading variant="display-strong-s">{post.metadata.title}</Heading>
-      </Column>
-      {post.metadata.images.length > 0 && (
-        <SmartImage
-          priority
-          aspectRatio="16 / 9"
-          radius="m"
-          alt="image"
-          src={post.metadata.images[0]}
-        />
-      )}
-      <Column style={{ margin: "auto" }} as="article" maxWidth="xs">
-        <Flex gap="12" marginBottom="24" vertical="center">
-          {post.metadata.team && <AvatarGroup reverse avatars={avatars} size="m" />}
-          <Text variant="body-default-s" onBackground="neutral-weak">
-            {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
-          </Text>
-        </Flex>
-        <CustomMDX source={post.content} />
-      </Column>
-      <ScrollToHash />
+    <Row fillWidth>
+      <Row maxWidth={12} hide="m"/>
+      <Row fillWidth horizontal="center">
+        <Column as="section" maxWidth="xs" gap="l">
+          <Schema
+            as="blogPosting"
+            baseURL={baseURL}
+            path={`${work.path}/${post.slug}`}
+            title={post.metadata.title}
+            description={post.metadata.summary}
+            datePublished={post.metadata.publishedAt}
+            dateModified={post.metadata.publishedAt}
+            image={`${baseURL}/og?title=${encodeURIComponent(post.metadata.title)}`}
+            author={{
+              name: person.name,
+              url: `${baseURL}/`,
+              image: `${baseURL}${person.avatar}`,
+            }}
+          />
+          <Button data-border="rounded" href="/work" weight="default" variant="tertiary" size="s" prefixIcon="chevronLeft">
+            Posts
+          </Button>
+          <Heading variant="display-strong-s">{post.metadata.title}</Heading>
+          <Row gap="12" vertical="center">
+            {avatars.length > 0 && <AvatarGroup size="s" avatars={avatars} />}
+            <Text variant="body-default-s" onBackground="neutral-weak">
+              {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
+            </Text>
+          </Row>
+          <Column as="article" fillWidth>
+            <CustomMDX source={post.content} />
+          </Column>
+          <ScrollToHash />
+        </Column>
+    </Row>
+    <Column maxWidth={12} paddingLeft="40" fitHeight position="sticky" top="80" gap="16" hide="m">
+      <Row
+        gap="12"
+        paddingLeft="2"
+        vertical="center"
+        onBackground="neutral-medium"
+        textVariant="label-default-s"
+      >
+        <Icon name="document" size="xs" />
+        On this page
+      </Row>
+      <HeadingNav fitHeight/>
     </Column>
+    </Row>
   );
 }

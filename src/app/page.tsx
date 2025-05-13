@@ -11,8 +11,8 @@ import {
   Text,
 } from "@/once-ui/components";
 import { baseURL } from "@/app/resources";
-import TableOfContents from "@/components/about/TableOfContents";
-import styles from "@/components/about/about.module.scss";
+import TableOfContents from "@/components/home/TableOfContents";
+import styles from "@/components/home/home.module.scss";
 import { person, home, social } from "@/app/resources/content";
 import React from "react";
 import { Meta, Schema } from "@/once-ui/modules";
@@ -74,7 +74,7 @@ export default function Home() {
           gap="32"
           hide="s"
         >
-          <TableOfContents structure={structure} about={home} />
+          <TableOfContents structure={structure} home={home} />
         </Column>
       )}
       <Flex fillWidth mobileDirection="column" horizontal="center">

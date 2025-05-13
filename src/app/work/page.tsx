@@ -1,8 +1,8 @@
-import { Column } from "@/once-ui/components";
+import { Column, Heading } from "@/once-ui/components";
+import { Posts } from "@/components/work/Posts";
 import { baseURL } from "@/app/resources";
-import { about, person, work } from "@/app/resources/content";
+import { work, person } from "@/app/resources/content";
 import { Meta, Schema } from "@/once-ui/modules";
-import { Projects } from "@/components/work/Projects";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -16,21 +16,32 @@ export async function generateMetadata() {
 
 export default function Work() {
   return (
-    <Column maxWidth="m">
+    <Column maxWidth="l">
       <Schema
-        as="webPage"
+        as="work"
         baseURL={baseURL}
-        path={work.path}
         title={work.title}
         description={work.description}
+        path={work.path}
         image={`${baseURL}/og?title=${encodeURIComponent(work.title)}`}
         author={{
           name: person.name,
-          url: `${baseURL}/`,
+          url: `${baseURL}/work`,
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Projects />
+      <Heading marginBottom="l" variant="display-strong-s">
+        {work.title}
+      </Heading>
+      <Column
+				fillWidth flex={1}>
+				<Posts range={[1]} columns="3" thumbnail direction="column"/>
+			</Column>
+
+   <Heading marginBottom="l" variant="display-strong-s">
+        {work.title1}
+      </Heading>
+
     </Column>
   );
 }
