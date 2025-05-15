@@ -1,3 +1,6 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Button,
@@ -7,27 +10,28 @@ import {
   Icon,
   IconButton,
   SmartImage,
-  Tag,
+  Row,
+  RevealFx,
   Text,
 } from "@/once-ui/components";
 import { baseURL } from "@/app/resources";
 import TableOfContents from "@/components/home/TableOfContents";
 import styles from "@/components/home/home.module.scss";
 import { person, home, social } from "@/app/resources/content";
-import React from "react";
-import { Meta, Schema } from "@/once-ui/modules";
-
-export async function generateMetadata() {
-  return Meta.generate({
-    title: "Home",
-    description: home.description,
-    baseURL: baseURL,
-    image: `${baseURL}/og?title=${encodeURIComponent("Home")}`,
-    path: "/",
-  });
-}
+import { Schema } from "@/once-ui/modules";
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Responsive flag for mobile layout
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 600px)");
+    const handler = (e: MediaQueryListEvent | MediaQueryList) => setIsMobile(e.matches);
+    handler(mql);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
+
   const structure = [
     {
       title: home.intro.title,
@@ -35,9 +39,9 @@ export default function Home() {
       items: [],
     },
     {
-      title: home.work.title,
-      display: home.work.display,
-      items: home.work.experiences.map((experience) => experience.company),
+      title: home.school.title,
+      display: home.school.display,
+      items: home.school.experiences.map((experience) => experience.company),
     },
     {
       title: home.studies.title,
@@ -50,8 +54,9 @@ export default function Home() {
       items: home.technical.skills.map((skill) => skill.title),
     },
   ];
+
   return (
-    <Column maxWidth="m">
+    <Column maxWidth="m" fillWidth>
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -65,6 +70,7 @@ export default function Home() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
+
       {home.tableOfContent.display && (
         <Column
           left="0"
@@ -77,35 +83,35 @@ export default function Home() {
           <TableOfContents structure={structure} home={home} />
         </Column>
       )}
-      <Flex fillWidth mobileDirection="column" horizontal="center">
-        {home.avatar.display && (
-          <Column
-            className={styles.avatar}
-            position="sticky"
-            minWidth="160"
-            paddingX="l"
-            paddingBottom="xl"
-            gap="m"
-            flex={3}
-            horizontal="center"
-          >
-            <Avatar src={person.avatar} size="xl" />
-            <Flex gap="8" vertical="center">
-              <Icon onBackground="accent-weak" name="globe" />
-              {person.location}
-            </Flex>
-            {person.languages.length > 0 && (
-              <Flex wrap gap="8">
-                {person.languages.map((language, index) => (
-                  <Tag key={language} size="l">
-                    {language}
-                  </Tag>
-                ))}
+
+      <Column fillWidth mobileDirection="column" horizontal="center" marginTop={isMobile ? "xl" : "xl"}>
+        <Row
+          mobileDirection="column"
+          marginBottom="xl"
+          fillWidth
+          vertical={isMobile ? "center" : "start"}
+          horizontal="center"
+          gap={isMobile ? undefined : "xl"}
+        >
+          {home.avatar.display && (
+            <RevealFx
+              translateY={0.5}
+              direction="column"
+              minWidth="160"
+              paddingX="l"
+              paddingBottom="xl"
+              gap="m"
+              flex={3}
+              horizontal="center"
+            >
+              <Avatar src={person.avatar} size="xl" />
+              <Flex gap="8" vertical="center">
+                <Icon onBackground="accent-weak" name="globe" />
+                {person.location}
               </Flex>
-            )}
-          </Column>
-        )}
-        <Column className={styles.blockAlign} flex={9} maxWidth={40}>
+            </RevealFx>
+          )}
+
           <Column
             id={home.intro.title}
             fillWidth
@@ -113,84 +119,89 @@ export default function Home() {
             vertical="center"
             marginBottom="32"
           >
-            {home.calendar.display && (
-              <Flex
-                fitWidth
-                border="brand-alpha-medium"
-                className={styles.blockAlign}
-                style={{
-                  backdropFilter: "blur(var(--static-space-1))",
-                }}
-                background="brand-alpha-weak"
-                radius="full"
-                padding="4"
-                gap="8"
-                marginBottom="m"
-                vertical="center"
-              >
-                <Icon paddingLeft="12" name="calendar" onBackground="brand-weak" />
-                <Flex paddingX="8">Schedule a call</Flex>
-                <IconButton
-                  href={home.calendar.link}
-                  data-border="rounded"
-                  variant="secondary"
-                  icon="chevronRight"
-                />
-              </Flex>
-            )}
-            <Heading className={styles.textAlign} variant="display-strong-xl">
-              {person.name}
-            </Heading>
-            <Text
-              className={styles.textAlign}
-              variant="display-default-xs"
-              onBackground="neutral-weak"
+            <RevealFx
+              delay={0.2}
+              translateY={0.5}
+              direction="column"
+              horizontal={isMobile ? "center" : "start"}
+              vertical={isMobile ? "center" : "start"}
+              fillWidth
+              gap="8"
             >
-              {person.role}
-            </Text>
+              <Heading className={styles.textAlign} variant="display-strong-l">
+                Hi, I'm {person.name}
+              </Heading>
+
+              <Text
+                className={styles.textAlign}
+                variant="heading-default-xl"
+                onBackground="neutral-weak"
+              >
+                {person.role}
+              </Text>
+
+              {home.intro.display && (
+                <Column
+                  textVariant="body-default-l"
+                  fillWidth
+                  gap="m"
+                  marginBottom="m"
+                  align={isMobile ? "center" : "start"}
+                >
+                  {home.intro.description}
+                </Column>
+              )}
+            </RevealFx>
+
             {social.length > 0 && (
-              <Flex className={styles.blockAlign} paddingTop="20" paddingBottom="8" gap="8" wrap horizontal="center" fitWidth data-border="rounded">
+              <RevealFx
+                delay={0.4}
+                translateY={1}
+                className={styles.blockAlign}
+                paddingBottom="8"
+                gap="8"
+                wrap
+                horizontal="center"
+                fitWidth
+                data-border="rounded"
+              >
                 {social.map(
                   (item) =>
                     item.link && (
-                        <React.Fragment key={item.name}>
-                            <Button
-                                className="s-flex-hide"
-                                key={item.name}
-                                href={item.link}
-                                prefixIcon={item.icon}
-                                label={item.name}
-                                size="s"
-                                variant="secondary"
-                            />
-                            <IconButton
-                                className="s-flex-show"
-                                size="l"
-                                key={`${item.name}-icon`}
-                                href={item.link}
-                                icon={item.icon}
-                                variant="secondary"
-                            />
-                        </React.Fragment>
-                    ),
+                      <React.Fragment key={item.name}>
+                        <Button
+                          className="s-flex-hide"
+                          key={item.name}
+                          href={item.link}
+                          prefixIcon={item.icon}
+                          label={item.name}
+                          size="s"
+                          variant="secondary"
+                        />
+                        <IconButton
+                          className="s-flex-show"
+                          size="l"
+                          key={`${item.name}-icon`}
+                          href={item.link}
+                          icon={item.icon}
+                          variant="secondary"
+                        />
+                      </React.Fragment>
+                    )
                 )}
-              </Flex>
+              </RevealFx>
             )}
           </Column>
+        </Row>
 
-          {home.intro.display && (
-            <Column textVariant="body-default-l" fillWidth gap="m" marginBottom="xl">
-              {home.intro.description}
-            </Column>
-          )}
-
-          {home.work.display && (
+        <Column fillWidth>
+          {home.school.display && (
             <>
-              <Heading as="h2" id={home.work.title} variant="display-strong-s" marginBottom="m">
-                {home.work.title}
+              <Heading as="h2" id={home.school.title} variant="display-strong-s" marginBottom="m">
+                {home.school.title}
               </Heading>
               <Column fillWidth gap="l" marginBottom="40">
-                {home.work.experiences.map((experience, index) => (
+                {home.school.experiences.map((experience, index) => (
                   <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
                     <Flex fillWidth horizontal="space-between" vertical="end" marginBottom="4">
                       <Text id={experience.company} variant="heading-strong-l">
@@ -298,7 +309,7 @@ export default function Home() {
             </>
           )}
         </Column>
-      </Flex>
+      </Column>
     </Column>
   );
-} 
+}

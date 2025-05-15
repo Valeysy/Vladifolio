@@ -6,15 +6,15 @@ const person = {
   get name() {
     return `${this.firstName} ${this.lastName}`;
   },
-  role: "Student in Network and Telecommunication",
+  role: "Actively looking for an apprenticeship",
   avatar: "/images/avatar.png",
-  email: "nechadimir@gmail.com",
-  location: "Europe/Paris", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "French", "Vietnamese", "German", "Russian"], // optional: Leave the array empty if you don't want to display languages
+  email: "vladimir.nechaev.pro@gmail.com",
+  location: "France/Colmar", 
+  timezone: "Europe/Paris",
 };
 
 const newsletter = {
-  display: true,
+  display: false,
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
   description: (
     <>
@@ -25,28 +25,21 @@ const newsletter = {
 };
 
 const social = [
-  // Links are automatically displayed.
-  // Import new icons in /once-ui/icons.ts
-  {
-    name: "GitHub",
-    icon: "github",
-    link: "https://github.com/once-ui-system/nextjs-starter",
-  },
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
-  },
-  {
-    name: "X",
-    icon: "x",
-    link: "",
+    link: "https://linkedin.com/in/vladimir-nechaev-73aa3a1",
   },
   {
     name: "Email",
     icon: "email",
     link: `mailto:${person.email}`,
   },
+  {
+    name: "Phone",
+    icon: "phone",
+    link: "tel:+33749154373",
+  }
 ];
 
 const home = {
@@ -61,10 +54,6 @@ const home = {
   avatar: {
     display: true,
   },
-  calendar: {
-    display: false,
-    link: "https://cal.com",
-  },
   intro: {
     display: true,
     title: "Introduction",
@@ -74,100 +63,111 @@ const home = {
       </>
     ),
   },
-  work: {
-    display: true, // set to false to hide this section
+  school: {
+    display: true,
     title: "Work Experience",
     experiences: [
       {
         company: "Nartex",
-        timeframe: "17/02/2025 - 11/04/2025",
-        role: "Intern in mobile development",
+        timeframe: "March 2024 - May 2024",
+        role: "iOS Development and App Design Intern",
         achievements: [
           <>
-            Mobile app development using Swift and SwiftUI for IOS. Implentation of KMP multiplatform.
+            Developed mobile applications using Swift and SwiftUI for iOS
           </>,
           <>
-            Figma design and prototyping.
-          </>,
-        ],
-        images: [
-          // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
-        ],
-      },
-      {
-        company: "INNOV'events",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
-        achievements: [
-          <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
+            Created design mockups and prototypes
           </>,
           <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
-          </>,
+            Integrated KMP Multiplatform solution
+          </>
         ],
         images: [],
       },
+      {
+        company: "El Labo Records",
+        timeframe: "November 2023 - Present",
+        role: "Head of Communications",
+        achievements: [
+          <>
+            Managed social media platforms
+          </>,
+          <>
+            Created visual content
+          </>,
+          <>
+            Led the communications team
+          </>
+        ],
+        images: [],
+      },
+      
+      {
+        company: "INNOV/Events",
+        timeframe: "March 2023 - April 2023",
+        role: "Business Development Intern",
+        achievements: [
+          <>
+            Client prospecting
+          </>,
+          <>
+            Strategy development
+          </>,
+          <>
+            Entrepreneurial projects
+          </>
+        ],
+        images: [],
+      },
+     
     ],
   },
   studies: {
-    display: true, // set to false to hide this section
-    title: "Studies",
+    display: true,
+    title: "Education",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
+        name: "...ENSISA",
+        description: <>2026-2028 - Engineering degree in computer science and IT</>,
       },
+     
       {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "IUT Colmar - Network and Telecommunications",
+        description: <>2023-2026 - Bachelor's degree with a specialization in Cloud Development. Student entrepreneur status.</>,
       },
+      
     ],
   },
   technical: {
-    display: true, // set to false to hide this section
-    title: "Technical skills",
+    display: true,
+    title: "Skills",
     skills: [
       {
-        title: "Figma",
-        description: <>Able to prototype in Figma with Once UI with unnatural speed.</>,
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-          {
-            src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        title: "IT & Development",
+        description: <>
+          <strong>Languages:</strong> TypeScript / Swift / SwiftUI / Python / HTML/CSS / SQL / Bash<br />
+          <strong>Networking:</strong> Cisco Packet Tracer / EVE-NG / GNS3 / Fiber optics / Internet networking<br />
+          <strong>Personal Projects:</strong> Sonixmaster.com (AI-powered audio mastering software) / Follow.com (digital portfolio platform for students, in development)
+        </>,
+        images: []
       },
       {
-        title: "Next.js",
-        description: <>Building next gen apps with Next.js + Once UI + Supabase.</>,
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        title: "Design & Media",
+        description: <>
+          <strong>Imaging:</strong> Figma / UI/UX Design / Canva / Prototyping<br />
+          <strong>Video:</strong> Final Cut Pro / DaVinci Resolve / CapCut
+        </>,
+        images: []
       },
+   
+      {
+        title: "Soft Skills",
+        description: <>
+          <strong>Individual:</strong> Versatility / Resilience / Creativity / Adaptability to challenges<br />
+          <strong>Team:</strong> Teamwork / Project management / Professional communication
+        </>,
+        images: []
+      }
     ],
   },
 };
@@ -175,13 +175,21 @@ const home = {
 const work = {
   path: "/work",
   label: "Work",
-  title: "Projets",
-  title1: "Writing about design and tech...",
-  title2: "Writing about design and tech...",
-  title3: "Writing about design and tech...",
-
-  description: `Read what ${person.name} has been up to recently`,
-
+  title: "Projects",
+  title1: "Personal Projects",
+  title2: "Academic Projects",
+  title3: "Collaborations",
+  description: `Discover ${person.name}'s projects and works`
 };
 
-export { person, social, newsletter, home, work };
+const school = {
+  path: "/school",
+  label: "School",
+  title: "Projects",
+  title1: "Personal Projects",
+  title2: "Academic Projects",
+  title3: "Collaborations",
+  description: `Discover ${person.name}'s projects and works`
+};
+
+export { person, social, newsletter, home, school};

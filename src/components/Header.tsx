@@ -7,7 +7,7 @@ import { Fade, Flex, Line, ToggleButton } from "@/once-ui/components";
 import styles from "@/components/Header.module.scss";
 
 import { routes, display } from "@/app/resources";
-import { person, work } from "@/app/resources/content";
+import { home, person, school } from "@/app/resources/content";
 import { ThemeToggle } from "./ThemeToggle";
 
 type TimeDisplayProps = {
@@ -59,7 +59,7 @@ export const Header = () => {
         fillWidth
         padding="8"
         horizontal="center"
-        data-border="rounded"
+        data-border="playfull"
       >
         <Flex paddingLeft="12" fillWidth vertical="center" textVariant="body-default-s">
           {display.location && <Flex hide="s">{person.location}</Flex>}
@@ -67,7 +67,6 @@ export const Header = () => {
         <Flex fillWidth horizontal="center">
           <Flex
             background="surface"
-            border="neutral-alpha-medium"
             radius="m-4"
             shadow="l"
             padding="4"
@@ -79,9 +78,9 @@ export const Header = () => {
                 <>
                   <ToggleButton 
                     className="s-flex-hide"
-                    prefixIcon="home" 
+                    prefixIcon="person" 
                     href="/" 
-                    label="Home"
+                    label={home.label}
                     selected={pathname === "/"} 
                   />
                   <ToggleButton
@@ -93,30 +92,25 @@ export const Header = () => {
                 </>
               )}
               <Line background="neutral-alpha-medium" vert maxHeight="24" />
-              {routes["/work"] && (
+              {routes["/school"] && (
                 <>
                   <ToggleButton
                     className="s-flex-hide"
                     prefixIcon="grid"
-                    href="/work"
-                    label={work.label}
-                    selected={pathname.startsWith("/work")}
+                    href="/school"
+                    label={school.label}
+                    selected={pathname.startsWith("/school")}
                   />
                   <ToggleButton
                     className="s-flex-show"
                     prefixIcon="grid"
-                    href="/work"
-                    selected={pathname.startsWith("/work")}
+                    href="/school"
+                    selected={pathname.startsWith("/school")}
                   />
                 </>
               )}
               
-              {display.themeSwitcher && (
-                <>
-                  <Line background="neutral-alpha-medium" vert maxHeight="24" />
-                  <ThemeToggle />
-                </>
-              )}
+           
             </Flex>
           </Flex>
         </Flex>
@@ -128,7 +122,7 @@ export const Header = () => {
             textVariant="body-default-s"
             gap="20"
           >
-            <Flex hide="s">{display.time && <TimeDisplay timeZone={person.location} />}</Flex>
+            <Flex hide="s">{display.time && <TimeDisplay timeZone={person.timezone} />}</Flex>
           </Flex>
         </Flex>
       </Flex>

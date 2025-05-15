@@ -111,6 +111,20 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                 color: effects.lines.color,
               }}
             />
+            <Background
+              position="fixed"
+              top="0"
+              left="0"
+              right="0"
+              bottom="0"
+              zIndex={-1}
+              mask={{ cursor: true }}
+              gradient={{
+                display: true,
+                opacity: 60,
+                colorStart: "brand-background-strong",
+                colorEnd: "static-transparent",
+              }}            />
             <Flex fillWidth minHeight="16" hide="s"></Flex>
             <Header />
             <Flex

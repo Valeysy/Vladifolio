@@ -14,6 +14,6 @@ export {
   social,
   newsletter,
   home,
-  work,
+  school,
 
 } from "@/app/resources/content";
