@@ -36,7 +36,7 @@ export default function Document() {
       </Heading>
       
       <Column fillWidth flex={1}>
-        <Documents columns="3" direction="column" />
+        <Documents columns="3" direction="column" thumbnail />
       </Column>
     </Column>
   );

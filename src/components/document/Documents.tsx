@@ -6,6 +6,7 @@ import path from 'path';
 interface DocumentsProps {
     columns?: '1' | '2' | '3';
     direction?: 'row' | 'column';
+    thumbnail?: boolean;
 }
 
 // Function to get files from the public/documents directory
@@ -19,11 +20,21 @@ function getDocumentFiles() {
       const filePath = path.join(documentsDir, filename);
       const stats = statSync(filePath);
       
+      // We could associate specific thumbnails to certain files
+      // based on their name or extension
+      let thumbnail;
+      
+      // For example, you could add logic like:
+      // if (filename.includes('report')) {
+      //   thumbnail = '/images/gallery/report-thumbnail.jpg';
+      // }
+      
       return {
         name: filename,
         path: `/documents/${filename}`,
         size: Math.round(stats.size / 1024), // Size in KB
-        lastModified: stats.mtime
+        lastModified: stats.mtime,
+        thumbnail // undefined by default, will be handled in Document component
       };
     });
   } catch (error) {
@@ -34,7 +45,8 @@ function getDocumentFiles() {
 
 export function Documents({
     columns = '3',
-    direction = 'column'
+    direction = 'column',
+    thumbnail = false
 }: DocumentsProps) {
     const documents = getDocumentFiles();
 
@@ -49,6 +61,7 @@ export function Documents({
                             key={index}
                             document={doc}
                             direction={direction}
+                            thumbnail={thumbnail}
                         />
                     ))}
                 </Grid>

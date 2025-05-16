@@ -4,4 +4,9 @@
     &:hover {
         border: 1px solid var(--neutral-alpha-medium);
     }
+}
+
+.image {
+    transition: var(--transition-micro-medium);
+    transform: scale(1);
 } 

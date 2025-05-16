@@ -270,8 +270,8 @@ const document = {
   path: "/document",
   label: "Documents",
   title: `Documents – ${person.name}`,
-  description: `Téléchargez les documents de ${person.name}`,
-  title1: "Documents à télécharger",
+  description: `Download ${person.name}'s documents`,
+  title1: "Documents to download",
 };
 
 export {
