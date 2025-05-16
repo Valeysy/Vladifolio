@@ -15,10 +15,6 @@ export const ScrollToTop = ({
 }: ScrollToTopProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const handleScroll = () => {
-    setIsVisible(window.scrollY > offset);
-  };
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -27,9 +23,13 @@ export const ScrollToTop = ({
   };
 
   useEffect(() => {
+    const handleScroll = () => {
+      setIsVisible(window.scrollY > offset);
+    };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+  }, [offset]);
 
   return (
     <Flex

@@ -47,27 +47,27 @@ export const CompareImage = ({ leftContent, rightContent, ...rest }: CompareImag
     isDragging.current = false;
   };
 
-  const updatePosition = (clientX: number) => {
-    if (!isDragging.current || !containerRef.current) return;
-
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const containerWidth = rect.width;
-
-    // Calculate percentage (constrained between 0 and 100)
-    const newPosition = Math.max(0, Math.min(100, (x / containerWidth) * 100));
-    setPosition(newPosition);
-  };
-
-  const handleMouseMove = (e: MouseEvent) => {
-    updatePosition(e.clientX);
-  };
-
-  const handleTouchMove = (e: TouchEvent) => {
-    updatePosition(e.touches[0].clientX);
-  };
-
   useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging.current || !containerRef.current) return;
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const containerWidth = rect.width;
+      const newPosition = Math.max(0, Math.min(100, (x / containerWidth) * 100));
+      setPosition(newPosition);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isDragging.current || !containerRef.current) return;
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = e.touches[0].clientX - rect.left;
+      const containerWidth = rect.width;
+      const newPosition = Math.max(0, Math.min(100, (x / containerWidth) * 100));
+      setPosition(newPosition);
+    };
+
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
     document.addEventListener("touchmove", handleTouchMove);
@@ -79,7 +79,7 @@ export const CompareImage = ({ leftContent, rightContent, ...rest }: CompareImag
       document.removeEventListener("touchmove", handleTouchMove);
       document.removeEventListener("touchend", handleMouseUp);
     };
-  }, [handleMouseMove, handleTouchMove]);
+  }, []);
 
   return (
     <Flex

@@ -17,7 +17,7 @@ const person = {
 
 const newsletter = {
   display: false,
-  title: <>Subscribe to {person.firstName}'s Newsletter</>,
+  title: <>Subscribe to {person.firstName}&apos;s Newsletter</>,
   description: (
     <>
       I occasionally write about design, technology, and share thoughts on the intersection of
@@ -61,7 +61,7 @@ const home = {
     title: "Introduction",
     description: (
       <>
-        I'm currently a second-year student at the University of Haute Alsace in the Network and Telecommunications program with a specialization in Cloud Development. I'm actively seeking a work-study program of 1 year or more in IT, development and networking starting from September 2025. I'll be presenting the skills I've developed through my courses, work experience and personal projects.
+        I&apos;m currently a second-year student at the University of Haute Alsace in the Network and Telecommunications program with a specialization in Cloud Development. I&apos;m actively seeking a work-study program of 1 year or more in IT, development and networking starting from September 2025. I&apos;ll be presenting the skills I&apos;ve developed through my courses, work experience and personal projects.
       </>
     ),
   },
@@ -198,14 +198,14 @@ const home = {
       },
       {
         name: "IUT Colmar - Network and Telecommunications",
-        description: <>2023-2026 - Bachelor's degree with a specialization in Cloud Development. Student entrepreneur status.</>,
+        description: <>2023-2026 - Bachelor&apos;s degree with a specialization in Cloud Development. Student entrepreneur status.</>,
       },
       {
         name: "IUT Colmar - Marketing Techniques",
         description: <>2022-2023</>,
       },
       {
-        name: "Institution Sainte Jeanne D'arc",
+        name: "Institution Sainte Jeanne D&apos;arc",
         description: <>2015-2022 - General Baccalaureate with highest honors</>,
       },
       {
@@ -263,14 +263,14 @@ const academic = {
   label: "Academic",
   title: "Projects",
   title1: "SAE Projects",
-  description: `Discover ${person.name}'s projects and works`
+  description: `Discover ${person.name}&apos;s projects and works`
 };
 
 const document = {
   path: "/document",
   label: "Documents",
   title: `Documents – ${person.name}`,
-  description: `Download ${person.name}'s documents`,
+  description: `Download ${person.name}&apos;s documents`,
   title1: "Documents to download",
 };
 
