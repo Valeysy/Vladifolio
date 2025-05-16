@@ -1,14 +1,16 @@
 "use client";
 
-import { Column, Flex, Button, Text, SmartLink, SmartImage } from '@/once-ui/components';
+import { Column, Flex, Button, Text, SmartLink, SmartImage, Tag } from '@/once-ui/components';
 import styles from './Documents.module.scss';
+import { formatDate } from '@/app/utils/formatDate';
 
 interface DocumentFile {
-  name: string;
-  path: string;
-  size: number;
-  lastModified: Date;
-  thumbnail?: string;
+  title: string;
+  summary: string;
+  publishedAt: string;
+  tag?: string;
+  image?: string;
+  file?: string;
 }
 
 interface DocumentProps {
@@ -33,17 +35,6 @@ export default function Document({ document, direction = "column", empty = false
     );
   }
 
-  // Use one of the gallery images as thumbnail based on document name
-  const getGalleryThumbnail = (filename: string) => {
-    // For example, assign gallery images based on patterns in the name
-    if (filename.toLowerCase().includes('fr')) {
-      return '/images/gallery/CV_Vladimir_Nechaev_FR.png';
-    } 
-    return '/images/gallery/CV_Vladimir_Nechaev.png';
-  };
-  
-  const thumbnailSrc = document?.thumbnail || getGalleryThumbnail(document?.name || '');
-  
   return (
     <Flex
       position="relative"
@@ -55,7 +46,7 @@ export default function Document({ document, direction = "column", empty = false
       mobileDirection="column"
       height={24}
       fillWidth>
-      {thumbnail && (
+      {thumbnail && document?.image && (
         <SmartImage
           priority
           className={styles.image}
@@ -63,8 +54,8 @@ export default function Document({ document, direction = "column", empty = false
           border="neutral-alpha-weak"
           cursor="interactive"
           radius="l"
-          src={thumbnailSrc}
-          alt={'Thumbnail of ' + document?.name}
+          src={document.image}
+          alt={'Thumbnail of ' + document.title}
           aspectRatio="16 / 9"
         />
       )}
@@ -74,14 +65,22 @@ export default function Document({ document, direction = "column", empty = false
         padding="24"
         vertical="center">
         <Column gap="8">
-          <Text variant="body-strong-s">{document?.name}</Text>
+          <Text variant="body-strong-s">{document?.title}</Text>
           <Text variant="body-default-xs" color="neutral-on-background-weak">
-            {document?.size} KB • Modified on {new Date(document?.lastModified || "").toLocaleDateString('en-US')}
+            {document?.publishedAt && formatDate(document.publishedAt, false)}
           </Text>
+          {document?.tag && (
+            <Tag
+              label={document.tag}
+              variant="neutral"
+            />
+          )}
         </Column>
-        <SmartLink fillWidth href={document?.path} download>
-          <Button prefixIcon="download" fillWidth>Download</Button>
-        </SmartLink>
+        {document?.file && (
+          <SmartLink fillWidth href={document.file} download>
+            <Button prefixIcon="download" fillWidth>Download</Button>
+          </SmartLink>
+        )}
       </Column>
     </Flex>
   );
