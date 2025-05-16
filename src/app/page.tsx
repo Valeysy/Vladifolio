@@ -144,7 +144,7 @@ export default function Home() {
               gap="8"
             >
               <Heading className={styles.textAlign} variant="display-strong-l">
-                Hi, I'm {person.name}
+                Hi, I&apos;m {person.name}
               </Heading>
 
               <Text
