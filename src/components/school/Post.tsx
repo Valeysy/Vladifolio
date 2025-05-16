@@ -25,6 +25,7 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
                 radius="l"
                 className={styles.hover}
                 mobileDirection="column"
+                height={24}
                 fillWidth>
                 {post.metadata.image && thumbnail && (
                     <SmartImage

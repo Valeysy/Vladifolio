@@ -172,23 +172,12 @@ const home = {
   },
 };
 
-const work = {
-  path: "/work",
-  label: "Work",
-  title: "Projects",
-  title1: "Personal Projects",
-  title2: "Academic Projects",
-  title3: "Collaborations",
-  description: `Discover ${person.name}'s projects and works`
-};
 
 const school = {
   path: "/school",
   label: "School",
   title: "Projects",
-  title1: "Personal Projects",
-  title2: "Academic Projects",
-  title3: "Collaborations",
+  title1: "SAE Projects",
   description: `Discover ${person.name}'s projects and works`
 };
 
