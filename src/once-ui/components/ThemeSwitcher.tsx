@@ -3,15 +3,16 @@
 import React, { forwardRef } from "react";
 import { Row, useTheme, IconButton } from "@/once-ui/components";
 
-type ThemeType = "system" | "dark" | "light";
+type ThemeType = "dark";
 
 interface ThemeSwitchProps extends React.ComponentProps<typeof Row> {
   defaultTheme?: ThemeType;
 }
 
+// This component is kept for backward compatibility but only shows the dark theme button
 const ThemeSwitcher = forwardRef<HTMLDivElement, ThemeSwitchProps>(
-  ({ defaultTheme = "system", ...rest }, ref) => {
-    const { theme, setTheme } = useTheme();
+  ({ defaultTheme = "dark", ...rest }, ref) => {
+    const { theme } = useTheme();
 
     return (
       <Row
@@ -23,19 +24,9 @@ const ThemeSwitcher = forwardRef<HTMLDivElement, ThemeSwitchProps>(
         {...rest}
       >
         <IconButton
-          icon="computer"
-          variant={theme === "system" ? "primary" : "tertiary"}
-          onClick={() => setTheme("system")}
-        />
-        <IconButton
           icon="dark"
-          variant={theme === "dark" ? "primary" : "tertiary"}
-          onClick={() => setTheme("dark")}
-        />
-        <IconButton
-          icon="light"
-          variant={theme === "light" ? "primary" : "tertiary"}
-          onClick={() => setTheme("light")}
+          variant="primary"
+          onClick={() => {}}
         />
       </Row>
     );

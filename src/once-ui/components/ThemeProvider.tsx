@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = "light" | "dark" | "system";
+type Theme = "dark";
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -10,12 +10,12 @@ type ThemeProviderProps = {
 
 type ThemeProviderState = {
   theme: Theme;
-  resolvedTheme: 'light' | 'dark';
+  resolvedTheme: 'dark';
   setTheme: (theme: Theme) => void;
 };
 
 const initialState: ThemeProviderState = {
-  theme: "system",
+  theme: "dark",
   resolvedTheme: 'dark',
   setTheme: () => null,
 };
@@ -23,48 +23,26 @@ const initialState: ThemeProviderState = {
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  // Start with system theme on server, will be updated on client
-  const [theme, setTheme] = useState<Theme>("system");
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('dark');
+  // Always use dark theme
+  const [theme, setTheme] = useState<Theme>("dark");
+  const [resolvedTheme, setResolvedTheme] = useState<'dark'>('dark');
   const [mounted, setMounted] = useState(false);
 
   // Initialize theme from localStorage on mount
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
+    // Always set dark theme regardless of localStorage
+    setTheme("dark");
     setMounted(true);
   }, []);
 
-  // Update resolvedTheme when theme changes
+  // Update theme attributes when mounted
   useEffect(() => {
     if (!mounted) return;
 
     const root = document.documentElement;
-    if (theme === 'system') {
-      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setResolvedTheme(isDark ? 'dark' : 'light');
-      root.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    } else {
-      setResolvedTheme(theme === 'dark' ? 'dark' : 'light');
-      root.setAttribute('data-theme', theme);
-    }
-  }, [theme, mounted]);
-
-  // Listen for system theme changes
-  useEffect(() => {
-    if (!mounted || theme !== 'system') return;
-
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => {
-      setResolvedTheme(e.matches ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [theme, mounted]);
+    root.setAttribute('data-theme', 'dark');
+    
+  }, [mounted]);
 
   const value = {
     theme,

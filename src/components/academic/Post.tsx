@@ -17,7 +17,7 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
             unstyled
             style={{ borderRadius: 'var(--radius-l)' }}
             key={post.slug}
-            href={`/school/${post.slug}`}>
+            href={`/academic/${post.slug}`}>
             <Flex
                 position="relative"
                 transition="micro-medium"

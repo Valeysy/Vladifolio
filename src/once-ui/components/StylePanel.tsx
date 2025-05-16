@@ -109,11 +109,10 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(({ ...rest }, ref
           <SegmentedControl
             maxWidth={22}
             buttons={[
-              { size: "l", label: "Light", value: "light", prefixIcon: "light" },
               { size: "l", label: "Dark", value: "dark", prefixIcon: "dark" },
             ]}
-            onToggle={(value) => setTheme(value as "light" | "dark")}
-            selected={theme}
+            onToggle={() => {}}
+            selected="dark"
           />
         </Flex>
         <Flex horizontal="space-between" vertical="center" fillWidth paddingX="24" paddingY="16">

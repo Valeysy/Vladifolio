@@ -6,11 +6,13 @@ const person = {
   get name() {
     return `${this.firstName} ${this.lastName}`;
   },
-  role: "Actively looking for an apprenticeship",
+  role: "Network and Telecommunications Student",
   avatar: "/images/avatar.png",
   email: "vladimir.nechaev.pro@gmail.com",
+  phone: "07 49 15 43 73",
   location: "France/Colmar", 
   timezone: "Europe/Paris",
+  status: "Actively looking for work-study program",
 };
 
 const newsletter = {
@@ -28,7 +30,7 @@ const social = [
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://linkedin.com/in/vladimir-nechaev-73aa3a1",
+    link: "https://www.linkedin.com/in/vladimir-nechaev-73aa3a1a1",
   },
   {
     name: "Email",
@@ -36,9 +38,9 @@ const social = [
     link: `mailto:${person.email}`,
   },
   {
-    name: "Phone",
-    icon: "phone",
-    link: "tel:+33749154373",
+    name: "GitHub",
+    icon: "github",
+    link: "https://github.com/Valeysy",
   }
 ];
 
@@ -59,11 +61,29 @@ const home = {
     title: "Introduction",
     description: (
       <>
-        I'm currently studying at the University of Haute Alsace in the Network and Communication stream with a specialization in Cloud Development. I'll be presenting the skills I've developed through my courses, work experience and personal projects.
+        I'm currently a second-year student at the University of Haute Alsace in the Network and Telecommunications program with a specialization in Cloud Development. I'm actively seeking a work-study program of 1 year or more in IT, development and networking starting from September 2025. I'll be presenting the skills I've developed through my courses, work experience and personal projects.
       </>
     ),
   },
-  school: {
+  personalProjects: {
+    display: true,
+    title: "Personal Projects",
+    projects: [
+      {
+        name: "Sonixmaster",
+        description: "Sonixmaster is an innovative platform offering a suite of AI-powered mastering tools designed specifically for artists and content creators. It provides advanced audio processing capabilities that enhance the quality of music and other audio content, making it easier for creators to achieve professional-grade results. With Sonixmaster, users can access a range of features that streamline the mastering process, allowing them to focus more on their creative work while ensuring their audio output is polished and refined.",
+        website: "https://sonixmaster.com",
+        images: [
+          { src: "/images/og/Sonix-1.png", alt: "Sonixmaster Interface 1", width: 300, height: 200 },
+          { src: "/images/og/Sonix-2.png", alt: "Sonixmaster Interface 2", width: 300, height: 200 },
+          { src: "/images/og/Sonix-3.png", alt: "Sonixmaster Interface 3", width: 300, height: 200 },
+          { src: "/images/og/Sonix-4.png", alt: "Sonixmaster Interface 4", width: 300, height: 200 },
+        ]
+      },
+      
+    ]
+  },
+  academic: {
     display: true,
     title: "Work Experience",
     experiences: [
@@ -101,7 +121,23 @@ const home = {
         ],
         images: [],
       },
-      
+      {
+        company: "SKY KITCHEN, Cora Dornach",
+        timeframe: "August 2023 - August 2024",
+        role: "Versatile Employee",
+        achievements: [
+          <>
+            Inventory management
+          </>,
+          <>
+            Food preparation
+          </>,
+          <>
+            Maintenance
+          </>
+        ],
+        images: [],
+      },
       {
         company: "INNOV/Events",
         timeframe: "March 2023 - April 2023",
@@ -119,7 +155,37 @@ const home = {
         ],
         images: [],
       },
-     
+      {
+        company: "Poulaillon",
+        timeframe: "August 2022 - April 2023",
+        role: "Weekend Student Employee",
+        achievements: [
+          <>
+            Sales
+          </>,
+          <>
+            Customer relations
+          </>,
+          <>
+            Preparation and maintenance
+          </>
+        ],
+        images: [],
+      },
+      {
+        company: "E.Leclerc",
+        timeframe: "July 2022",
+        role: "Summer Employee",
+        achievements: [
+          <>
+            Shelf stocking
+          </>,
+          <>
+            Order preparation
+          </>
+        ],
+        images: [],
+      },
     ],
   },
   studies: {
@@ -130,12 +196,32 @@ const home = {
         name: "...ENSISA",
         description: <>2026-2028 - Engineering degree in computer science and IT</>,
       },
-     
       {
         name: "IUT Colmar - Network and Telecommunications",
         description: <>2023-2026 - Bachelor's degree with a specialization in Cloud Development. Student entrepreneur status.</>,
       },
-      
+      {
+        name: "IUT Colmar - Marketing Techniques",
+        description: <>2022-2023</>,
+      },
+      {
+        name: "Institution Sainte Jeanne D'arc",
+        description: <>2015-2022 - General Baccalaureate with highest honors</>,
+      },
+      {
+        name: "KMK German language certification",
+        description: <>2018 - Level A2/B1</>,
+      },
+    ],
+  },
+  languages: {
+    display: true,
+    title: "Languages",
+    list: [
+      { name: "English", level: "Advanced proficiency" },
+      { name: "Vietnamese", level: "Bilingual" },
+      { name: "German", level: "Basic knowledge" },
+      { name: "Russian", level: "Elementary" },
     ],
   },
   technical: {
@@ -159,7 +245,6 @@ const home = {
         </>,
         images: []
       },
-   
       {
         title: "Soft Skills",
         description: <>
@@ -173,12 +258,27 @@ const home = {
 };
 
 
-const school = {
-  path: "/school",
-  label: "School",
+const academic = {
+  path: "/academic",
+  label: "Academic",
   title: "Projects",
   title1: "SAE Projects",
   description: `Discover ${person.name}'s projects and works`
 };
 
-export { person, social, newsletter, home, school};
+const document = {
+  path: "/document",
+  label: "Documents",
+  title: `Documents – ${person.name}`,
+  description: `Téléchargez les documents de ${person.name}`,
+  title1: "Documents à télécharger",
+};
+
+export {
+  person,
+  social,
+  newsletter,
+  home,
+  academic,
+  document,
+};

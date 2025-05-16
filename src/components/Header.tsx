@@ -7,7 +7,7 @@ import { Fade, Flex, Line, ToggleButton } from "@/once-ui/components";
 import styles from "@/components/Header.module.scss";
 
 import { routes, display } from "@/app/resources";
-import { home, person, school } from "@/app/resources/content";
+import { home, person, academic, document } from "@/app/resources/content";
 import { ThemeToggle } from "./ThemeToggle";
 
 type TimeDisplayProps = {
@@ -92,25 +92,43 @@ export const Header = () => {
                 </>
               )}
               <Line background="neutral-alpha-medium" vert maxHeight="24" />
-              {routes["/school"] && (
+              {routes["/academic"] && (
                 <>
                   <ToggleButton
                     className="s-flex-hide"
                     prefixIcon="grid"
-                    href="/school"
-                    label={school.label}
-                    selected={pathname.startsWith("/school")}
+                    href="/academic"
+                    label={academic.label}
+                    selected={pathname.startsWith("/academic")}
                   />
                   <ToggleButton
                     className="s-flex-show"
                     prefixIcon="grid"
-                    href="/school"
-                    selected={pathname.startsWith("/school")}
+                    href="/academic"
+                    selected={pathname.startsWith("/academic")}
+                  />
+                  
+                </>
+             
+             )}
+               {routes["/document"] && (
+                <>
+                  <ToggleButton
+                    className="s-flex-hide"
+                    prefixIcon="document"
+                    href="/document"
+                    label={document.label}
+                    selected={pathname.startsWith("/document")}
+                  />
+                  <ToggleButton
+                    className="s-flex-show"
+                    prefixIcon="document"
+                    href="/document"
+                    selected={pathname.startsWith("/document")}
                   />
                 </>
               )}
-              
-           
+
             </Flex>
           </Flex>
         </Flex>

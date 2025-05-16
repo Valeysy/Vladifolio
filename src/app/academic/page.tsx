@@ -1,37 +1,37 @@
 import { Column, Heading } from "@/once-ui/components";
-import { Posts } from "@/components/school/Posts";
+import { Posts } from "@/components/academic/Posts";
 import { baseURL } from "@/app/resources";
-import { school, person } from "@/app/resources/content";
+import { academic, person } from "@/app/resources/content";
 import { Meta, Schema } from "@/once-ui/modules";
 
 export async function generateMetadata() {
   return Meta.generate({
-    title: school.title,
-    description: school.description,
+    title: academic.title,
+    description: academic.description,
     baseURL: baseURL,
-    image: `${baseURL}/og?title=${encodeURIComponent(school.title)}`,
-    path: school.path,
+    image: `${baseURL}/og?title=${encodeURIComponent(academic.title)}`,
+    path: academic.path,
   });
 }
 
-export default function School() {
+export default function Academic() {
   return (
     <Column maxWidth="l">
       <Schema
         as="article"
         baseURL={baseURL}
-        title={school.title}
-        description={school.description}
-        path={school.path}
-        image={`${baseURL}/og?title=${encodeURIComponent(school.title)}`}
+        title={academic.title}
+        description={academic.description}
+        path={academic.path}
+        image={`${baseURL}/og?title=${encodeURIComponent(academic.title)}`}
         author={{
           name: person.name,
-          url: `${baseURL}/school`,
+          url: `${baseURL}/academic`,
           image: `${baseURL}${person.avatar}`,
         }}
       />
       <Heading marginBottom="l" variant="display-strong-s">
-        {school.title1}
+        {academic.title1}
       </Heading>
       <Column
 				fillWidth flex={1}>

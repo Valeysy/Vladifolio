@@ -11,14 +11,24 @@ import {
   IconButton,
   SmartImage,
   Row,
+  Carousel,
   RevealFx,
   Text,
+  TiltFx,
 } from "@/once-ui/components";
 import { baseURL } from "@/app/resources";
 import TableOfContents from "@/components/home/TableOfContents";
 import styles from "@/components/home/home.module.scss";
 import { person, home, social } from "@/app/resources/content";
 import { Schema } from "@/once-ui/modules";
+
+// Define the image interface
+interface ImageType {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+}
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -39,9 +49,14 @@ export default function Home() {
       items: [],
     },
     {
-      title: home.school.title,
-      display: home.school.display,
-      items: home.school.experiences.map((experience) => experience.company),
+      title: home.personalProjects.title,
+      display: home.personalProjects.display,
+      items: home.personalProjects.projects.map((project) => project.name),
+    },
+    {
+      title: home.academic.title,
+      display: home.academic.display,
+      items: home.academic.experiences.map((experience) => experience.company),
     },
     {
       title: home.studies.title,
@@ -195,119 +210,136 @@ export default function Home() {
         </Row>
 
         <Column fillWidth>
-          {home.school.display && (
+          {home.personalProjects.display && (
             <>
-              <Heading as="h2" id={home.school.title} variant="display-strong-s" marginBottom="m">
-                {home.school.title}
-              </Heading>
-              <Column fillWidth gap="l" marginBottom="40">
-                {home.school.experiences.map((experience, index) => (
-                  <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
-                    <Flex fillWidth horizontal="space-between" vertical="end" marginBottom="4">
-                      <Text id={experience.company} variant="heading-strong-l">
-                        {experience.company}
+
+              <Column id={home.personalProjects.title} fillWidth gap="l">
+                {home.personalProjects.projects.map((project, index) => (
+                  <Column key={`${project.name}-${index}`} fillWidth marginBottom="m">
+                    <TiltFx
+                      direction="column"
+                      horizontal={isMobile ? "center" : "start"}
+                      vertical={isMobile ? "center" : "start"}
+                      fillWidth
+                      gap="8"
+                    >
+                      {project.images.length > 0 && (
+                        <Carousel
+                          indicator="thumbnail"
+                          images={project.images}
+                        />
+                      )}
+                    </TiltFx>
+
+                    <Column marginTop="l" fillWidth gap="8" marginBottom="xl"> 
+                      <Text id={project.name} variant="heading-strong-l">
+                        {project.name}
                       </Text>
-                      <Text variant="heading-default-xs" onBackground="neutral-weak">
-                        {experience.timeframe}
+                      <Text variant="body-default-m" onBackground="neutral-weak" marginBottom="m">
+                        {project.description}
                       </Text>
-                    </Flex>
-                    <Text variant="body-default-s" onBackground="brand-weak" marginBottom="m">
-                      {experience.role}
-                    </Text>
-                    <Column as="ul" gap="16">
-                      {experience.achievements.map((achievement, index) => (
-                        <Text
-                          as="li"
-                          variant="body-default-m"
-                          key={`${experience.company}-${index}`}
-                        >
-                          {achievement}
-                        </Text>
-                      ))}
+                      {project.website && (
+                        <Button 
+                          suffixIcon="chevronRight" 
+                          data-border="rounded" 
+                          variant="primary" 
+                          href={project.website} 
+                          label="Website" 
+                        />
+                      )}
                     </Column>
-                    {experience.images.length > 0 && (
-                      <Flex fillWidth paddingTop="m" paddingLeft="40" wrap>
-                        {experience.images.map((image, index) => (
-                          <Flex
-                            key={index}
-                            border="neutral-medium"
-                            radius="m"
-                            minWidth={image.width}
-                            height={image.height}
-                          >
-                            <SmartImage
-                              enlarge
-                              radius="m"
-                              sizes={image.width.toString()}
-                              alt={image.alt}
-                              src={image.src}
-                            />
-                          </Flex>
-                        ))}
-                      </Flex>
-                    )}
                   </Column>
                 ))}
               </Column>
             </>
           )}
 
-          {home.studies.display && (
-            <>
-              <Heading as="h2" id={home.studies.title} variant="display-strong-s" marginBottom="m">
-                {home.studies.title}
-              </Heading>
-              <Column fillWidth gap="l" marginBottom="40">
-                {home.studies.institutions.map((institution, index) => (
-                  <Column key={`${institution.name}-${index}`} fillWidth gap="8">
-                    <Text id={institution.name} variant="heading-strong-l">
-                      {institution.name}
-                    </Text>
-                    <Text variant="body-default-m">{institution.description}</Text>
-                  </Column>
-                ))}
-              </Column>
-            </>
-          )}
+          <Column fillWidth>
+            {home.academic.display && (
+              <>
+                <Row fillWidth center marginBottom="xl" gap="s" >
+                  <Heading as="h2" variant="display-strong-s">
+                      My Resume
+                  </Heading>
+                  <IconButton size="l" icon="download" variant="tertiary" href="/CV_Vladimir_Nechaev.pdf" download="CV_Vladimir_Nechaev.pdf"/>
+                </Row>
 
-          {home.technical.display && (
-            <>
-              <Heading as="h2" id={home.technical.title} variant="display-strong-s" marginBottom="m">
-                {home.technical.title}
-              </Heading>
-              <Column fillWidth gap="l" marginBottom="40">
-                {home.technical.skills.map((skill, index) => (
-                  <Column key={`${skill.title}-${index}`} fillWidth gap="8">
-                    <Text id={skill.title} variant="heading-strong-l">
-                      {skill.title}
-                    </Text>
-                    <Text variant="body-default-m">{skill.description}</Text>
-                    {skill.images.length > 0 && (
-                      <Flex fillWidth paddingTop="m" paddingLeft="40" wrap>
-                        {skill.images.map((image, index) => (
-                          <Flex
-                            key={index}
-                            border="neutral-medium"
-                            radius="m"
-                            minWidth={image.width}
-                            height={image.height}
-                          >
-                            <SmartImage
-                              enlarge
-                              radius="m"
-                              sizes={image.width.toString()}
-                              alt={image.alt}
-                              src={image.src}
-                            />
-                          </Flex>
-                        ))}
+                <Heading as="h2" id={home.academic.title} variant="display-strong-s" marginBottom="m">
+                  {home.academic.title}
+                </Heading>
+                <Column fillWidth gap="l" marginBottom="40">
+                  {home.academic.experiences.map((experience, index) => (
+                    <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
+                      <Flex fillWidth horizontal="space-between" vertical="end" marginBottom="4">
+                        <Text id={experience.company} variant="heading-strong-l">
+                          {experience.company}
+                        </Text>
+                        <Text variant="heading-default-xs" onBackground="neutral-weak">
+                          {experience.timeframe}
+                        </Text>
                       </Flex>
-                    )}
-                  </Column>
-                ))}
-              </Column>
-            </>
-          )}
+                      <Text variant="body-default-s" onBackground="brand-weak" marginBottom="m">
+                        {experience.role}
+                      </Text>
+                      <Column as="ul" gap="16">
+                        {experience.achievements.map((achievement, index) => (
+                          <Text
+                            as="li"
+                            variant="body-default-m"
+                            key={`${experience.company}-${index}`}
+                          >
+                            {achievement}
+                          </Text>
+                        ))}
+                      </Column>
+                   
+                    </Column>
+                  ))}
+                </Column>
+              </>
+            )}
+
+            {home.studies.display && (
+              <>
+                <Heading as="h2" id={home.studies.title} variant="display-strong-s" marginBottom="m">
+                  {home.studies.title}
+                </Heading>
+                <Column fillWidth gap="l" marginBottom="40">
+                  {home.studies.institutions.map((institution, index) => (
+                    <Column key={`${institution.name}-${index}`} fillWidth gap="8">
+                      <Text id={institution.name} variant="heading-strong-l">
+                        {institution.name}
+                      </Text>
+                      <Text variant="body-default-m">{institution.description}</Text>
+                    </Column>
+                  ))}
+                </Column>
+              </>
+            )}
+
+            {home.technical.display && (
+              <>
+                <Heading as="h2" id={home.technical.title} variant="display-strong-s" marginBottom="m">
+                  {home.technical.title}
+                </Heading>
+                <Column fillWidth gap="l" marginBottom="40">
+                  {home.technical.skills.map((skill, index) => (
+                    <Column key={`${skill.title}-${index}`} fillWidth gap="8">
+                      <Text id={skill.title} variant="heading-strong-l">
+                        {skill.title}
+                      </Text>
+                      <Text variant="body-default-m">{skill.description}</Text>
+                      {skill.images.length > 0 && (
+                        <Flex fillWidth paddingTop="m" paddingLeft="40" wrap>
+                         
+                        </Flex>
+                      )}
+                    </Column>
+                  ))}
+                </Column>
+              </>
+            )}
+          </Column>
         </Column>
       </Column>
     </Column>
