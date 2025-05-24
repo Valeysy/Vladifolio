@@ -100,7 +100,7 @@ export default function Home() {
       )}
 
       <Column fillWidth mobileDirection="column" horizontal="center" marginTop={isMobile ? "xl" : "xl"}>
-        <Row
+        <RevealFx
           mobileDirection="column"
           marginBottom="xl"
           fillWidth
@@ -109,8 +109,7 @@ export default function Home() {
           gap={isMobile ? undefined : "xl"}
         >
           {home.avatar.display && (
-            <RevealFx
-              translateY={0.5}
+            <Row
               direction="column"
               minWidth="160"
               paddingX="l"
@@ -124,7 +123,7 @@ export default function Home() {
                 <Icon onBackground="accent-weak" name="globe" />
                 {person.location}
               </Flex>
-            </RevealFx>
+            </Row>
           )}
 
           <Column
@@ -207,7 +206,7 @@ export default function Home() {
               </RevealFx>
             )}
           </Column>
-        </Row>
+        </RevealFx>
 
         <Column fillWidth>
           {home.personalProjects.display && (

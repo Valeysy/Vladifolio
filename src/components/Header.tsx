@@ -69,7 +69,7 @@ export const Header = () => {
             background="surface"
             radius="m-4"
             shadow="l"
-            padding="4"
+            padding="8"
             horizontal="center"
             zIndex={1}
           >
